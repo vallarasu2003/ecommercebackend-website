@@ -19,7 +19,7 @@ const updateproduct = async(req,res)=>{
     try{
         data=req.body
         id=req.params
-        const updprod=await product.updatedata({ where: { productId: id } })
+        const updprod=await product.update(data,{ where: { productId: id } })
         res.status(201).json(updprod);
     }
     catch(error){
