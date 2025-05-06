@@ -11,6 +11,13 @@ const product= sequelize.define("Product",{
      productInfo:
      { type: DataTypes.STRING ,allowNull: false },
      productPurchase:
+     { type: DataTypes.STRING },
+     CompanyName:
+     { type: DataTypes.STRING  },
+     CompanyDetail:
+     { type: DataTypes.STRING  },
+     CompanyRating:
      { type: DataTypes.STRING  }
+
 } )
 module.exports=product;
