@@ -3,7 +3,7 @@ const express= require('express')
 const jwt = require("jsonwebtoken");
 const createuser=async(req,res) => {
     try{
-        console.log("Received data:", req.body);
+       
         data=req.body
         const adduser= await user.create(data)
         res.status(201).json(adduser);
@@ -17,10 +17,10 @@ const createuser=async(req,res) => {
 };
 const updateuser=async(req,res)=>{
     try{
-        data=req.body
-        id=req.params
-        const upduser=await user.update(data, { where: { email: id } })
-        return upduser
+        const data=req.body
+        const {id}=req.params
+        const upduser=await user.update(data, { where: { id: id } })
+        res.status(201).json(upduser);
     }
     catch(error){
         console.log(error)
@@ -28,9 +28,9 @@ const updateuser=async(req,res)=>{
 }
 const findalluser = async (req, res) => {
   try {
-    const response = await product.findAll()
+    const response = await user.findAll()
     res.status(200).json(response); 
-    console.log(response,"response pof all user ")
+   
   } catch (error) {
     console.error("Failed to fetch users:", error);
     res.status(500).json({ error: "Failed to fetch users" });
@@ -59,8 +59,8 @@ const loginuser = async (req, res) => {
       }
       const token = jwt.sign(
         { id: foundUser.id, email: foundUser.email, role: foundUser.role },
-        "yourSecretKey",  // Replace with process.env.JWT_SECRET in production
-        { expiresIn: "1h" }
+        "yourSecretKey",  
+        { expiresIn: "1d" }
       );
   
       res.status(200).json({ message: "Login successful", user: foundUser ,token:token});
